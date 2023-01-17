@@ -13,33 +13,25 @@ basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     handlers=[FileHandler('log.txt'), StreamHandler()],
                     level=INFO)
 
-load_dotenv('config.env', override=True)
-
+CONFIG_FILE_URL = os.environ.get('CONFIG_FILE_URL', None)
 try:
-    if bool(environ.get('_____REMOVE_THIS_LINE_____')):
-        log_error('The README.md file there to be read! Exiting now!')
-        exit()
-except:
+    if len(CONFIG_FILE_URL) == 0:
+        raise TypeError
+    try:
+        res = requests.get(CONFIG_FILE_URL)
+        if res.status_code == 200:
+            with open('config.env', 'wb+') as f:
+                f.write(res.content)
+                f.close()
+        else:
+            logging.error(f"Failed to download config.env {res.status_code}")
+    except Exception as e:
+        logging.error(f"CONFIG_FILE_URL: {e}")
+except TypeError:
     pass
 
-BOT_TOKEN = environ.get('BOT_TOKEN', '')
-if len(BOT_TOKEN) == 0:
-    log_error("BOT_TOKEN variable is missing! Exiting now")
-    exit(1)
+load_dotenv('config.env', override=True)
 
-bot_id = int(BOT_TOKEN.split(':', 1)[0])
-
-DATABASE_URL = environ.get('DATABASE_URL', '')
-if len(DATABASE_URL) == 0:
-    DATABASE_URL = None
-
-if DATABASE_URL is not None:
-    conn = MongoClient(DATABASE_URL)
-    db = conn.mltb
-    if config_dict := db.settings.config.find_one({'_id': bot_id}):  #retrun config dict (all env vars)
-        environ['UPSTREAM_REPO'] = config_dict['UPSTREAM_REPO']
-        environ['UPSTREAM_BRANCH'] = config_dict['UPSTREAM_BRANCH']
-    conn.close()
 
 UPSTREAM_REPO = environ.get('UPSTREAM_REPO', '')
 if len(UPSTREAM_REPO) == 0:
@@ -63,6 +55,6 @@ if UPSTREAM_REPO is not None:
                      && git reset --hard origin/{UPSTREAM_BRANCH} -q"], shell=True)
 
     if update.returncode == 0:
-        log_info('Successfully updated with latest commit from UPSTREAM_REPO')
+        log_info('Successfully updated with latest commit from https://github.com/anasty17/mirror-leech-telegram-bot')
     else:
         log_error('Something went wrong while updating, check UPSTREAM_REPO if valid or not!')
