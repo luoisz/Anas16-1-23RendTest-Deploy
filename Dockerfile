@@ -1,4 +1,4 @@
-FROM drzawlinmg/anasty17sourceimage:latest
+FROM drzawlinmg/main:mltb_ans.source
 
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
