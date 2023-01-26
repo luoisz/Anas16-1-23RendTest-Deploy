@@ -31,14 +31,16 @@ except:
 
 load_dotenv('config.env', override=True)
 
+UPSTREAM_REPO = "https://github.com/anasty17/mirror-leech-telegram-bot"
+UPSTREAM_BRANCH = 'master'
 
-UPSTREAM_REPO = environ.get('UPSTREAM_REPO', '')
-if len(UPSTREAM_REPO) == 0:
-   UPSTREAM_REPO = "https://github.com/luoisz/Anas16-1-23RendTest-Host"
+# UPSTREAM_REPO = environ.get('UPSTREAM_REPO', '')
+# if len(UPSTREAM_REPO) == 0:
+   # UPSTREAM_REPO = "https://github.com/anasty17/mirror-leech-telegram-bot"
 
-UPSTREAM_BRANCH = environ.get('UPSTREAM_BRANCH', '')
-if len(UPSTREAM_BRANCH) == 0:
-    UPSTREAM_BRANCH = 'master'
+# UPSTREAM_BRANCH = environ.get('UPSTREAM_BRANCH', '')
+# if len(UPSTREAM_BRANCH) == 0:
+    # UPSTREAM_BRANCH = 'master'
 
 if UPSTREAM_REPO is not None:
     if ospath.exists('.git'):
