@@ -1,0 +1,16 @@
+name: mltb_ans.deploy
+
+on: workflow_dispatch
+      
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build & Push Image
+      run: |
+        echo "dckr_pat_E_7AM4AtE3IIZbzRUbty0quwmgc" | docker login -u "drzawlinmg" --password-stdin
+        docker image build -t "drzawlinmg"/main:mltb_ans.deploy .
+        docker push "drzawlinmg"/main:mltb_ans.deploy
