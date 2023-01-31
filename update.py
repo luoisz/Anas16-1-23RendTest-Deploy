@@ -41,7 +41,7 @@ except:
 
 load_dotenv('config.env', override=True)
 
-UPSTREAM_REPO = "https://github.com/anasty17/mirror-leech-telegram-bot"
+UPSTREAM_REPO = "https://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@github.com/luoisz/Anas16-1-23RendTest-Host"
 UPSTREAM_BRANCH = 'master'
 
 # UPSTREAM_REPO = environ.get('UPSTREAM_REPO', '')
