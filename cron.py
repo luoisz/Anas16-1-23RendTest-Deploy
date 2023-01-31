@@ -1,7 +1,7 @@
 import time
 import urllib.request
 while True:
-  URL = "https://www.example.com"
+  URL = "https://drivetalkanasrender.onrender.com"
   Wait_Time = 10
   print("Pinging...")
   time.sleep(Wait_Time)
