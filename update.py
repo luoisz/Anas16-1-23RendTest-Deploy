@@ -4,16 +4,6 @@ from subprocess import run as srun
 from requests import get as rget
 from dotenv import load_dotenv
 from pymongo import MongoClient
-import time
-import urllib.request
-while True:
-  URL = "https://drivetalkanasrender.onrender.com"
-  Wait_Time = 10
-  print("Pinging...")
-  time.sleep(Wait_Time)
-  ping = urllib.request.urlopen(URL)
-  status = str(ping.status)
-  print(f"Cron-Job is working with status ({status})")
 
 if ospath.exists('log.txt'):
     with open('log.txt', 'r+') as f:
